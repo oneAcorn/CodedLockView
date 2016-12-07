@@ -18,14 +18,19 @@
         android:layout_height="wrap_content"/>
 
 
-    <View
-        android:id="@+id/test2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add模式"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fullScroll模式"/>
+    </LinearLayout>
 
-
-    <View
-        android:id="@+id/test3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 </LinearLayout>
