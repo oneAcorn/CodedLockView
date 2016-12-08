@@ -57,6 +57,7 @@ public class NumberDrawable extends Drawable {
         textPaint.setColor(textColor);
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(textSize);
+        textPaint.setStyle(Paint.Style.STROKE);
 
         Rect textRect = new Rect();
         textPaint.getTextBounds("7", 0, 1, textRect);
@@ -130,6 +131,7 @@ public class NumberDrawable extends Drawable {
             //drawText的y值显然指文字底部的y
             int centerY = getIntrinsicHeight() / 2 + commonNumHeight / 2;
             canvas.drawText(codeStr, 0, centerY, textPaint);
+            canvas.drawRect(getBounds(),textPaint);
         }
     }
 
