@@ -26,7 +26,6 @@ public class CodedLockView extends View {
     private float density; //dp
 
     private List<NumberDrawable> numberDrawables = new ArrayList<>();
-//    private NumberDrawable drawable;
 
     private double number;
     private int textSize;
@@ -54,8 +53,6 @@ public class CodedLockView extends View {
         this.textColor = ta.getColor(R.styleable.CodedLockView_textColor, 0xff000000);
         this.duration = ta.getInteger(R.styleable.CodedLockView_duration, 1000);
         ta.recycle();
-//        mNumberDrawable.setBounds(0, 0, mNumberDrawable.getIntrinsicWidth(),
-//                mNumberDrawable.getIntrinsicHeight());
         String numberStr = String.valueOf(number);
         for (int i = 0; i < numberStr.length(); i++) {
             NumberDrawable numberDrawable = new NumberDrawable(numberStr.substring(i, i + 1),
@@ -65,10 +62,6 @@ public class CodedLockView extends View {
                     numberDrawable.getIntrinsicHeight());
             numberDrawables.add(numberDrawable);
         }
-
-//        drawable = new NumberDrawable("2", textSize, textColor, duration, 3);
-//        drawable.setCallback(this);
-//        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
     }
 
     @Override
@@ -115,7 +108,6 @@ public class CodedLockView extends View {
                 Log.i("df", "draw2");
             }
         }
-//        drawable.draw(canvas);
     }
 
     public void startAddToAnim(String str) {
@@ -169,6 +161,5 @@ public class CodedLockView extends View {
             }
         }
         return isVerify || super.verifyDrawable(who);
-//        return drawable == who || super.verifyDrawable(who);
     }
 }
