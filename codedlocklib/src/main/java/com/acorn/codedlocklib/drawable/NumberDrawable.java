@@ -224,6 +224,11 @@ class NumberDrawable extends Drawable {
         textValueAnimator.setInterpolator(new DecelerateInterpolator());
     }
 
+    public void setDuration(int duration){
+        if(null==textValueAnimator)
+            return;
+        textValueAnimator.setDuration(duration);
+    }
 
     void startAnim(long delay) {
         if (null == textValueAnimator)

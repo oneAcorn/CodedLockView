@@ -31,6 +31,15 @@ public class NumberTextDrawable extends Drawable implements NumberDrawable.OnUpd
         }
     }
 
+    public void setDuration(int duration){
+        if(null==numberDrawables)
+            return;
+        this.mDuration=duration;
+        for (int i = 0; i < numberDrawables.length; i++) {
+            numberDrawables[i].setDuration(mDuration);
+        }
+    }
+
     public void startAddToAnim(String str) {
         NumberDrawable[] lastStr = numberDrawables.clone();
         numberDrawables = new NumberDrawable[str.length()];
