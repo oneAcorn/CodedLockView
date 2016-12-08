@@ -1,7 +1,6 @@
 package com.acorn.codedlocklib.drawable;
 
 import android.animation.Animator;
-import android.animation.Keyframe;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
@@ -17,7 +16,7 @@ import android.view.animation.DecelerateInterpolator;
 /**
  * Created by Acorn on 2016/10/31.
  */
-class NumberDrawable extends Drawable {
+public class NumberDrawable extends Drawable {
     private static final int DEFAULT_DURATION = 1000;
 
     private String codeStr;
@@ -47,13 +46,12 @@ class NumberDrawable extends Drawable {
         this(codeStr, textSize, textColor, DEFAULT_DURATION, -1);
     }
 
-    NumberDrawable(String codeStr, int textSize, int textColor, int duration) {
+    public NumberDrawable(String codeStr, int textSize, int textColor, int duration) {
         this(codeStr, textSize, textColor, duration, -1);
     }
 
-    NumberDrawable(String codeStr, int textSize, int textColor, int duration, int beginIndex) {
+    public NumberDrawable(String codeStr, int textSize, int textColor, int duration, int beginAnimNumber) {
         this.codeStr = codeStr;
-        setBeginAnimIndex(beginIndex);
 
         textPaint = new Paint();
         textPaint.setColor(textColor);
@@ -68,7 +66,7 @@ class NumberDrawable extends Drawable {
 
         this.centerY = getIntrinsicHeight() / 2 + commonNumHeight / 2;
 
-        createAnimator(duration);
+        setBeginAnimNumber(beginAnimNumber,duration);
     }
 
     public boolean isAnimating() {
@@ -93,26 +91,29 @@ class NumberDrawable extends Drawable {
     /**
      * 从密码表第几位开始向上移动
      *
-     * @param beginAnimIndex
+     * @param beginAnimNumber 第一个出现在动画底部的数字
      */
-    public void setBeginAnimIndex(int beginAnimIndex) {
-        if (beginAnimIndex < 0)
+    public void setBeginAnimNumber(int beginAnimNumber,int duration) {
+        if (beginAnimNumber < 0)
             return;
         int codeListLength = 11;
-        if (beginAnimIndex > codeListLength - 1) {
+        if (beginAnimNumber > codeListLength - 1) {
             return;
         }
         codeList = new String[codeListLength];
-        codeList[0] = String.valueOf(beginAnimIndex - 1 < 0 ? 9 : beginAnimIndex - 1);
+        codeList[0] = String.valueOf(beginAnimNumber - 1 < 0 ? 9 : beginAnimNumber - 1);
         for (int i = 1; i < codeList.length; i++) {
-            codeList[i] = String.valueOf((beginAnimIndex - 1 + i) <= 9 ? beginAnimIndex - 1 + i :
-                    beginAnimIndex - 1 + i - 10);
+            codeList[i] = String.valueOf((beginAnimNumber - 1 + i) <= 9 ? beginAnimNumber - 1 + i :
+                    beginAnimNumber - 1 + i - 10);
             if (codeList[i].equals(codeStr)) {
                 this.isContainsInCodes = true;
                 this.codesIndex = i;
             }
         }
+
+        createAnimator(duration);
     }
+
 
     @Override
     public void draw(@NonNull Canvas canvas) {
@@ -195,7 +196,10 @@ class NumberDrawable extends Drawable {
 
                 if (null != onUpdateListener)
                     onUpdateListener.onUpdate();
-//                invalidateSelf();
+                if(codeStr.equals("5")){
+                    Log.i("sdf","update:"+offsetY);
+                }
+                invalidateSelf();
             }
         };
         textValueAnimator.addListener(new Animator.AnimatorListener() {
@@ -224,17 +228,19 @@ class NumberDrawable extends Drawable {
         textValueAnimator.setInterpolator(new DecelerateInterpolator());
     }
 
-    public void setDuration(int duration){
-        if(null==textValueAnimator)
+    public void setDuration(int duration) {
+        if (null == textValueAnimator)
             return;
         textValueAnimator.setDuration(duration);
     }
 
-    void startAnim(long delay) {
+    public void startAnim(long delay) {
         if (null == textValueAnimator)
             return;
         if (!isContainsInCodes)
             return;
+//        if (textValueAnimator.isRunning())
+//            textValueAnimator.cancel();
         textValueAnimator.setStartDelay(delay);
         textValueAnimator.start();
     }

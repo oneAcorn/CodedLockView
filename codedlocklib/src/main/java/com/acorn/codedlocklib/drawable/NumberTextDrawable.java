@@ -14,6 +14,7 @@ public class NumberTextDrawable extends Drawable implements NumberDrawable.OnUpd
     private int textSize;
     private int textColor;
     private int mDuration;
+    private String numberStr;
 
     public NumberTextDrawable(String str, int textSize, int textColor) {
         this(str, textSize, textColor, DEFAULT_DURATION);
@@ -23,6 +24,7 @@ public class NumberTextDrawable extends Drawable implements NumberDrawable.OnUpd
         this.textSize = textSize;
         this.textColor = textColor;
         this.mDuration = mDuration;
+        this.numberStr = str;
 
         numberDrawables = new NumberDrawable[str.length()];
         for (int i = 0; i < numberDrawables.length; i++) {
@@ -31,16 +33,22 @@ public class NumberTextDrawable extends Drawable implements NumberDrawable.OnUpd
         }
     }
 
-    public void setDuration(int duration){
-        if(null==numberDrawables)
+    public void setDuration(int duration) {
+        if (null == numberDrawables)
             return;
-        this.mDuration=duration;
+        this.mDuration = duration;
         for (int i = 0; i < numberDrawables.length; i++) {
             numberDrawables[i].setDuration(mDuration);
         }
     }
 
+
+    public NumberDrawable[] getNumberDrawables() {
+        return numberDrawables;
+    }
+
     public void startAddToAnim(String str) {
+        this.numberStr = str;
         NumberDrawable[] lastStr = numberDrawables.clone();
         numberDrawables = new NumberDrawable[str.length()];
         for (int i = 0; i < numberDrawables.length; i++) {
@@ -67,6 +75,12 @@ public class NumberTextDrawable extends Drawable implements NumberDrawable.OnUpd
         startAnim();
     }
 
+    private void startAnim() {
+        for (int i = 0; i < numberDrawables.length; i++) {
+            numberDrawables[i].startAnim(i * mDuration / 20);
+        }
+    }
+
     public void startFullScrollAnim() {
         NumberDrawable[] lastStr = numberDrawables.clone();
         for (int i = 0; i < numberDrawables.length; i++) {
@@ -86,6 +100,10 @@ public class NumberTextDrawable extends Drawable implements NumberDrawable.OnUpd
         }
         numberDrawables[numberDrawables.length - 1].setOnUpdateListener(this);
         startAnim();
+    }
+
+    public String getNumberStr() {
+        return numberStr;
     }
 
     @Override
@@ -127,12 +145,6 @@ public class NumberTextDrawable extends Drawable implements NumberDrawable.OnUpd
         return PixelFormat.TRANSLUCENT;
     }
 
-    public void startAnim() {
-        for (int i = 0; i < numberDrawables.length; i++) {
-            numberDrawables[i].startAnim(i * 30);
-        }
-//        invalidateSelf();
-    }
 
     @Override
     public void onUpdate() {

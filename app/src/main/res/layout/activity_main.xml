@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/activity_main"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -21,7 +22,7 @@
         android:id="@+id/duration_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/test1"
+        android:layout_alignBottom="@+id/duration_et"
         android:text="duration:"
         />
 
@@ -29,23 +30,27 @@
         android:id="@+id/duration_et"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:inputType="numberSigned"
+        android:layout_below="@+id/test1"
+        android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/duration_title_tv"
-        android:layout_alignBottom="@+id/duration_title_tv"
+        android:inputType="numberSigned"
         android:textSize="18sp"
         />
 
     <LinearLayout
+        android:id="@+id/btn_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/duration_title_tv"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="add模式"
             />
+
         <Button
             android:id="@+id/full_scroll_btn"
             android:layout_width="wrap_content"
@@ -53,4 +58,35 @@
             android:text="fullScroll模式"/>
     </LinearLayout>
 
+    <com.acorn.codedlocklib.CodedLockView
+        android:id="@+id/clv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_layout"
+        app:numberText="13521.12"
+        app:textColor="#ff372872"
+        app:textSize="60sp"
+        app:duration="5000"
+        />
+
+    <LinearLayout
+        android:id="@+id/btn_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/clv"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/add_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add模式"
+            />
+
+        <Button
+            android:id="@+id/full_scroll_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fullScroll模式"/>
+    </LinearLayout>
 </RelativeLayout>

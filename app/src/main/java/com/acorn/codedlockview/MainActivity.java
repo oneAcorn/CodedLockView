@@ -8,13 +8,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.acorn.codedlocklib.CodedLockView;
+import com.acorn.codedlocklib.drawable.CodedLockDrawable;
 import com.acorn.codedlocklib.drawable.NumberTextDrawable;
 import com.acorn.codedlocklib.utils.DensityUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    ImageView testV;
-    Button addBtn, fullScrollBtn;
-    EditText durationEt;
+    private ImageView testV;
+    private Button addBtn, fullScrollBtn;
+    private EditText durationEt;
+
+    private CodedLockView codedLockView;
+    private Button addBtn2, fullScrollBtn2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +29,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addBtn = (Button) findViewById(R.id.add_btn);
         fullScrollBtn = (Button) findViewById(R.id.full_scroll_btn);
         durationEt = (EditText) findViewById(R.id.duration_et);
+        codedLockView = (CodedLockView) findViewById(R.id.clv);
+        addBtn2 = (Button) findViewById(R.id.add_btn2);
+        fullScrollBtn2 = (Button) findViewById(R.id.full_scroll_btn2);
 
         setCodedDrawable("13989.54", testV);
         addBtn.setOnClickListener(this);
         fullScrollBtn.setOnClickListener(this);
+        addBtn2.setOnClickListener(this);
+        fullScrollBtn2.setOnClickListener(this);
     }
 
 
@@ -61,16 +71,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (duration != 0) {
             drawable.setDuration(duration);
+            codedLockView.setDuration(duration);
         }
-        if (view == addBtn) {
 
-//            drawable.startAnim();
-            drawable.startAddToAnim("13980.36");
-//            drawable.startFullScrollAnim();
+        if (view == addBtn) {
+            double number = Double.parseDouble(drawable.getNumberStr());
+            number += 178.32d;
+            drawable.startAddToAnim(String.valueOf(number));
         } else if (view == fullScrollBtn) {
             drawable.startFullScrollAnim();
-        } else if (view == testV) {
-            drawable.startAnim();
+        } else if (view == addBtn2) {
+//            codedLockView.startAddToAnim();
+        } else if (view == fullScrollBtn2) {
+            codedLockView.startFullScrollAnim();
         }
     }
 }

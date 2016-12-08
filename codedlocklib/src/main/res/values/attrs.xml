@@ -3,6 +3,7 @@
     <declare-styleable name="CodedLockView">
         <attr name="numberText" format="string"/>
         <attr name="textColor" format="color|reference"/>
-        <attr name="duration" format="integer"/>
+        <attr name="textSize" format="dimension|reference"/>
+        <attr name="duration" format="integer|reference"/>
     </declare-styleable>
 </resources>
